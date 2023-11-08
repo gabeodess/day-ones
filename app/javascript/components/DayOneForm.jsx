@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from "react";
-import Calendar from "./Calendar";
+import { useNavigate } from "react-router-dom";
+
 
 export default () => {
   const [dayOne, setDayOne] = useState({date: new Date().toJSON().slice(0, 10)});
   const [dayOnes, setDayOnes] = useState([]);
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   const fetchDayOnes = async () => {
     setDayOnes((await (await fetch('/api/day_ones')).json())['items'])
@@ -17,7 +19,7 @@ export default () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setErrors(null);
+    setErrors({});
     const response = await fetch(event.target.action, {
       method: 'post', body: JSON.stringify({day_one: dayOne}),
       headers: {
@@ -25,6 +27,7 @@ export default () => {
       },  
     })
     if(response.status < 400) {
+      return navigate("/");
     } else if(response.status < 500) {
       const body = await response.json();
       setErrors(body.errors);
