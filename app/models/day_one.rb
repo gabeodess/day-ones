@@ -32,4 +32,8 @@ class DayOne < ApplicationRecord
       self.days = user.period
     end
   end
+
+  def as_json_v1
+    as_json(only: [:id, :date, :days])
+  end
 end

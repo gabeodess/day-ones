@@ -1,18 +1,23 @@
 import React, {useEffect, useState} from "react";
 import Calendar from "./Calendar";
-import { Link } from "react-router-dom";
 
 export default () => {
   const [dayOne, setDayOne] = useState({date: new Date().toJSON().slice(0, 10)});
+  const [dayOnes, setDayOnes] = useState([]);
   const [errors, setErrors] = useState({});
-  const [user, setUser] = useState();
 
-  const fetchUser = async () => {
-    setUser(await (await fetch('/api/session')).json())
+  const fetchDayOnes = async () => {
+    setDayOnes((await (await fetch('/api/day_ones')).json())['items'])
   }
 
-  const handleSubmit = async (event) =>{
+  const handleDelete = async id => {
+    const response = await fetch(`/api/day_ones/${id}`, { method: 'delete' });
+    fetchDayOnes();
+  }
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setErrors(null);
     const response = await fetch(event.target.action, {
       method: 'post', body: JSON.stringify({day_one: dayOne}),
       headers: {
@@ -26,24 +31,22 @@ export default () => {
     } else {
       alert('Something went wrong!')
     }
+    fetchDayOnes();
   }
 
   useEffect(() => {
-    fetchUser();
+    fetchDayOnes();
   }, [])
 
   return (
     <div>
       <div className="container secondary-color">
-        <h1 className="display-4">Period</h1>
+        <h1 className="display-4">Day One Form</h1>
         <p className="lead">
-          Track your period.
+          Record a new Day One.
         </p>
         <hr className="my-4" />
-        {user && user.most_recent_date && <div>
-          <Calendar user={user}/>
-        </div>}
-        {user && !user.most_recent_date && <div>
+        <div>
           <form action='/api/day_ones' method='post' onSubmit={handleSubmit}>
             <div className="input-group mb-3">
               <input 
@@ -61,12 +64,29 @@ export default () => {
               </div>}
             </div>
           </form>
-        </div>}
+        </div>
+        <hr className="my-4" />
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Period</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {dayOnes && dayOnes.map(({id, date, days}) => <tr key={id}>
+              <td>{date}</td>
+              <td>{days} days</td>
+              <td><a onClick={() => handleDelete(id)} className="text-danger"><i className='bi bi-trash'/></a></td>
+            </tr>)}
+          </tbody>
+        </table>
       </div>
       <nav className="navbar fixed-bottom bg-body-tertiary">
         <div className="container-fluid">
           <a href="/"><i className="bi bi-calendar"></i></a>
-          <Link to="/day-ones/new"><i className="bi bi-plus-square"></i></Link>
+          <a href="/"><i className="bi bi-plus-square"></i></a>
           <a href="/"><i className="bi bi-person"></i></a>
         </div>
       </nav>

@@ -1,12 +1,10 @@
 Rails.application.routes.draw do
-  root 'sessions#show'
-
   resources :users, only: [:new, :create, :show]
   resource :session, only: [:new, :create, :destroy]
 
   namespace :api do
     resource :session, only: [:show]
-    resources :day_ones, only: [:create, :index]
+    resources :day_ones, only: [:create, :index, :destroy]
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -16,5 +14,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root 'sessions#show'
+
+  match '/*path', to: 'sessions#show', via: :get
 end
