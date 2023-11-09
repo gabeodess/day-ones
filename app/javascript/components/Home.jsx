@@ -63,13 +63,6 @@ export default () => {
           </form>
         </div>}
       </div>
-      <nav className="navbar fixed-bottom bg-body-tertiary">
-        <div className="container-fluid">
-          <a href="/"><i className="bi bi-calendar"></i></a>
-          <Link to="/day-ones/new"><i className="bi bi-plus-square"></i></Link>
-          <a href="/"><i className="bi bi-person"></i></a>
-        </div>
-      </nav>
     </div>
   )
 };
