@@ -1,21 +1,22 @@
 import React from 'react';
+import parseLocalDate from '../helpers/parseLocalDate';
 
 export default ({user}) => {
     const today = new Date();
-    const day14 = new Date(user.most_recent_date)
+    const day14 = parseLocalDate(user.most_recent_date)
     day14.setDate(day14.getDate + 14)
     const iterator = new Date();
     iterator.setDate(iterator.getDate() - today.getDay() - 1);
-    const dayOne = new Date(user.most_recent_date)
-    const nextDayOne = new Date(user.most_recent_date)
+    const dayOne = parseLocalDate(user.most_recent_date)
+    const nextDayOne = parseLocalDate(user.most_recent_date)
     nextDayOne.setDate(nextDayOne.getDate() + user.period)
-    const nextOvulation = new Date(user.most_recent_date)
+    const nextOvulation = parseLocalDate(user.most_recent_date)
     nextOvulation.setDate(nextOvulation.getDate() + 14)
 
     const highChanceStart = new Date(nextOvulation)
-    highChanceStart.setDate(highChanceStart.getDate() - 7)
+    highChanceStart.setDate(highChanceStart.getDate() - 6)
     const highChanceEnd = new Date(nextOvulation)
-    highChanceEnd.setDate(highChanceEnd.getDate() + 2)
+    highChanceEnd.setDate(highChanceEnd.getDate() + 3)
 
     const getNext = () => {
         iterator.setDate(iterator.getDate() + 1)
@@ -44,9 +45,9 @@ export default ({user}) => {
                 {Array(5).fill().map(i => <tr key={Math.random()}>
                     {Array(7).fill().map(i => {
                         const date = getNext();
-                        return <td key={Math.random()} className={`${isHighChance() ? 'table-danger' : ''} position-relative`}>
-                            {isToday() && <i className="bi bi-calendar-x text-primary position-absolute top-0 end-0 me-1"></i>}
+                        return <td key={Math.random()} className={`${isHighChance() ? 'table-danger' : ''} position-relative text-center`}>
                             {date.getDate()}
+                            {isToday() && <i className="bi bi-calendar text-primary position-absolute top-0 start-0 today" style={{width: '100%', fontSize: '25px'}}></i>}
                             {isDayOne() && <i className="bi bi-droplet position-absolute top-0 end-0 me-1 text-danger"></i>}
                             {isOvulation() && <i className="bi bi-egg-fill position-absolute top-0 end-0 me-1 text-white"></i>}
                         </td>
