@@ -7,10 +7,10 @@ export default () => {
             <Outlet />
         </div>
         <nav className="navbar fixed-bottom bg-body-tertiary">
-        <div className="container-fluid">
-          <Link to="/"><i className="bi bi-calendar"></i></Link>
-          <Link to="/day-ones/new"><i className="bi bi-plus-square"></i></Link>
-          <Link to="/profile"><i className="bi bi-person"></i></Link>
+        <div className="container-fluid justify-content-around">
+          <Link className='fs-1 btn btn-outline-secondary border-0' to="/"><i className="bi bi-calendar"></i></Link>
+          <Link className='fs-1 btn btn-outline-secondary border-0' to="/day-ones/new"><i className="bi bi-plus-square"></i></Link>
+          <Link className='fs-1 btn btn-outline-secondary border-0' to="/profile"><i className="bi bi-person"></i></Link>
         </div>
       </nav>
     </div>
