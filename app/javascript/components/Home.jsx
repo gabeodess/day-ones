@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import Calendar from "./Calendar";
-import { Link } from "react-router-dom";
 
 export default () => {
   const [dayOne, setDayOne] = useState({date: new Date().toJSON().slice(0, 10)});

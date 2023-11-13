@@ -12,6 +12,14 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div id="<%= "react-app" if react_app? %>">
+      <div class="vw-100 vh-100 primary-color d-flex align-items-center justify-content-center">
+        <div class="jumbotron jumbotron-fluid bg-transparent">
+          <div class="container secondary-color">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
