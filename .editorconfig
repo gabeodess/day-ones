@@ -1,5 +1,5 @@
 [*]
 indent_style = space
 
-[*.{js,ts,json,rb}]
+[*.{js,jsx,ts,json,rb}]
 indent_size = 2
