@@ -1,0 +1,10 @@
+<h1>Reset Password</h1>
+<%= form_with url: :password do |f| %>
+  <div class='form-floating mb-3'>
+    <%= f.email_field :email, class: "form-control" %>
+    <%= f.label :email %>
+  </div>
+  <div class="d-grid">
+    <%= f.submit "Reset Password", class: 'btn btn-primary btn-lg' %>
+  </div>
+<% end %>

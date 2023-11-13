@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resource :password, only: [:new, :create, :edit, :update] do
+    get :reset
+  end
   resources :users, only: [:new, :create, :show]
   resource :session, only: [:new, :create, :destroy]
 
