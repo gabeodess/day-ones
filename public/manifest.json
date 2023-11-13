@@ -1,0 +1,7 @@
+{
+  "name": "Day Ones",
+  "short_name": "Day Ones",
+  "display": "standalone",
+  "scope": "https://day-ones.onrender.com",
+  "start_url": "https://day-ones.onrender.com"
+}
