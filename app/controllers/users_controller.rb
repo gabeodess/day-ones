@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @user = User.new(params.require(:user).permit(:email, :password))
     if @user.save
       login!(@user)
-      redirect_to @user
+      redirect_to :root
     else
       render :new
     end

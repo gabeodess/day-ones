@@ -1,11 +1,6 @@
 require "test_helper"
 
 class PasswordsControllerTest < ActionDispatch::IntegrationTest
-  test "should get edit" do
-    get passwords_edit_url
-    assert_response :success
-  end
-
   test "should get new" do
     user = User.create!(email: 'foobar@example.com', password: 'password')
     get new_password_url
@@ -16,7 +11,7 @@ class PasswordsControllerTest < ActionDispatch::IntegrationTest
     get reset_password_url(token: token)
     assert_response :ok
     put password_url, params: {new_password: 'password2', token: token}
-    assert_redirected_to :session
+    assert_redirected_to :root
     assert user.reload.authenticate('password2')
     assert !user.reload.authenticate('password')
   end

@@ -18,7 +18,8 @@ export default () => {
         "Content-Type": "application/json",
       },  
     })
-    if(response.status < 400) {
+    if(response.status <= 299) {
+      fetchUser();
     } else if(response.status < 500) {
       const body = await response.json();
       setErrors(body.errors);

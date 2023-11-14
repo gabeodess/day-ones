@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resource :password, only: [:new, :create, :edit, :update] do
     get :reset
   end
-  resources :users, only: [:new, :create, :show]
+  resources :users, only: [:new, :create]
   resource :session, only: [:new, :create, :destroy]
 
   namespace :api do
