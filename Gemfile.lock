@@ -202,6 +202,7 @@ GEM
     reline (0.3.9)
       io-console (~> 0.5)
     rexml (3.2.6)
+    rollbar (3.4.1)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     selenium-webdriver (4.15.0)
@@ -257,6 +258,7 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 7.1.1)
   redis (>= 4.0.1)
+  rollbar
   selenium-webdriver
   sprockets-rails
   stimulus-rails
