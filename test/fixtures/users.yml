@@ -1,9 +1,11 @@
 one:
   email: foobar1@example.com
   password_digest: $2a$12$yqMfTnq5jwqitFJPAEUdZejFZXWQQdJDL.KFu3Ow408NuM93SaHJi
-  period: 28
+  cycle_max: 29
+  cycle_min: 27
 
 two:
   email: foobar2@example.com
   password_digest: $2a$12$yqMfTnq5jwqitFJPAEUdZejFZXWQQdJDL.KFu3Ow408NuM93SaHJi
-  period: 28
+  cycle_max: 29
+  cycle_min: 27
