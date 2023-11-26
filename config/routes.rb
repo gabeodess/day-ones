@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   namespace :api do
     resource :session, only: [:show]
     resources :day_ones, only: [:create, :index, :destroy]
+    resources :follows, only: [:create, :index, :destroy]
+    resources :users, only: [:show]
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
