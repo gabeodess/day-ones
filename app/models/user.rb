@@ -57,7 +57,7 @@ class User < ApplicationRecord
         ovulation: day_14,
         high_chance_end: day_14 + egg_lifespan,
         low_chance_end: day_20 + egg_lifespan,
-        next_day_one: day_one + 27,
+        next_day_one: day_one + 28,
       }
     end
 end

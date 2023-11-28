@@ -13,6 +13,7 @@ export default ({user: {calendar}}) => {
   const lowChanceStart = parseLocalDate(calendar.low_chance_start)
   const lowChanceEnd = parseLocalDate(calendar.low_chance_end)
 
+  let cycleIterator = 0;
   const iterator = dateHelper.beginningOfDayLocal();
   iterator.setDate(iterator.getDate() - today.getDay() - 1)
 
@@ -25,7 +26,8 @@ export default ({user: {calendar}}) => {
   const isOvulation = () => (iterator.toDateString() == nextOvulation.toDateString())
   const isHighChance = () => (highChanceStart <= iterator && iterator <= highChanceEnd)
   const isLowChance = () => (!isHighChance() && lowChanceStart <= iterator && iterator <= lowChanceEnd)
-  const isToday = () => (iterator.toDateString() == today.toDateString())
+  const isToday = () => (iterator.toDateString() == today.toDateString());
+  const isInCycle = () => (dayOne <= iterator && iterator < nextDayOne);
 
   return <div>
     <table className="table table-bordered">
@@ -52,6 +54,7 @@ export default ({user: {calendar}}) => {
               })}
             >
               {date.getDate()}
+              {isInCycle() && <span className="position-absolute end-0 bottom-0 me-1 fw-lighter fs-7">{cycleIterator += 1}</span>}
               {isToday() && <i className="bi bi-calendar text-primary position-absolute top-0 start-0 today" style={{width: '100%', fontSize: '25px'}}></i>}
               {isDayOne() && <i className="bi bi-droplet position-absolute top-0 end-0 me-1 text-danger"></i>}
               {isOvulation() && <i className="bi bi-egg-fill position-absolute top-0 end-0 me-1 text-white"></i>}
