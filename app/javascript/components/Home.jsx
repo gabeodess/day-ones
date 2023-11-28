@@ -69,10 +69,10 @@ export default () => {
             </li>)}
           </ul>
         </div>}
-        {selectedUser.most_recent_date && <div>
+        {selectedUser.calendar && <div>
           <Calendar user={selectedUser}/>
         </div>}
-        {user.id === selectedUser.id && !user.most_recent_date && <div>
+        {user.id === selectedUser.id && !user.calendar && <div>
           <div className="alert alert-light" role="alert">
             <div className="mb-1">You haven't recorded any Day Ones.  </div>
             Enter one below <i className="bi bi-arrow-down"></i>

@@ -13,7 +13,13 @@ class User < ApplicationRecord
       self.cycle_max ||= DayOne::DEFAULT_CYCLE_LENGTH + 1
     end
 
-    delegate :most_recent_date, to: :day_ones
+    def most_recent_date
+      @most_recent_date ||= day_ones.most_recent_date
+    end
+
+    def average
+      @average ||= day_ones.average(:days)
+    end
 
     def first_name
       email.split(/[^a-zA-Z]/).first
@@ -31,8 +37,27 @@ class User < ApplicationRecord
     end
 
     def as_json_v1
-      as_json(only: [:id, :email, :period], methods: [:most_recent_date]).merge({
+      as_json(only: [:id, :email, :period], methods: [:calendar]).merge({
         followees: followees.as_json(only: [:id,], methods: [:first_name])
       })
+    end
+
+    def calendar
+      day_one = most_recent_date
+      return unless day_one
+      sperm_lifespan = 5
+      egg_lifespan = 1
+      day_11 = day_one + 10
+      day_14 = day_one + 13
+      day_20 = day_one + 19
+      {
+        day_one: most_recent_date,
+        low_chance_start: day_11 - sperm_lifespan,
+        high_chance_start: day_14 - sperm_lifespan,
+        ovulation: day_14,
+        high_chance_end: day_14 + egg_lifespan,
+        low_chance_end: day_20 + egg_lifespan,
+        next_day_one: day_one + 27,
+      }
     end
 end
