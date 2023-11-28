@@ -18,7 +18,7 @@ export default () => {
   const fetchUser = async () => {
     const fetchedUser = await (await fetch('/api/session')).json();
     setUser(fetchedUser);
-    setSelectedUser(fetchedUser);
+    setSelectedUser(fetchedUser.followees.length > 0 ? fetchedUser.followees[0] : fetchedUser);
   }
 
   const handleSubmit = async (event) =>{

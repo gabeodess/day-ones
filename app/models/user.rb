@@ -38,7 +38,7 @@ class User < ApplicationRecord
 
     def as_json_v1
       as_json(only: [:id, :email, :period], methods: [:calendar]).merge({
-        followees: followees.as_json(only: [:id,], methods: [:first_name])
+        followees: followees.as_json(only: [:id,], methods: [:first_name, :calendar])
       })
     end
 

@@ -13,9 +13,11 @@ export default ({user: {calendar}}) => {
   const lowChanceStart = parseLocalDate(calendar.low_chance_start)
   const lowChanceEnd = parseLocalDate(calendar.low_chance_end)
 
-  let cycleIterator = 0;
   const iterator = dateHelper.beginningOfDayLocal();
   iterator.setDate(iterator.getDate() - today.getDay() - 1)
+
+  const oneDay = 1000 * 60 * 60 * 24;
+  let cycleIterator = iterator < dayOne ? 0 : (iterator - dayOne + oneDay) / oneDay;
 
   const getNext = () => {
     iterator.setDate(iterator.getDate() + 1)
