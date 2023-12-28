@@ -8,6 +8,6 @@ one:
 
 two:
   user: two
-  endpoint: MyString
+  endpoint: MyString2
   p256dh: MyString
   auth: MyString
