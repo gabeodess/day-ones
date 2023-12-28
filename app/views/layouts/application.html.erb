@@ -8,6 +8,11 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
+    <script>
+      window.vapidPublicKey = new Uint8Array(<%= Base64.urlsafe_decode64(ENV['VAPID_PUBLIC_KEY']).bytes %>);
+    </script>
+
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :pushers, only: [:create]
   resource :password, only: [:new, :create, :edit, :update] do
     get :reset
   end

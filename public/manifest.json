@@ -2,6 +2,14 @@
   "name": "Day Ones",
   "short_name": "Day Ones",
   "display": "standalone",
-  "scope": "https://day-ones.onrender.com",
-  "start_url": "https://day-ones.onrender.com"
+  "background_color": "#3367D6",
+  "theme_color": "#3367D6",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "type": "image/png"
+    }
+  ]
 }

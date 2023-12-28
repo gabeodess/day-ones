@@ -4,6 +4,7 @@ class User < ApplicationRecord
     scope :accessible_by, ->(user) { where(id: user.id).or(User.where(id: user.followee_ids)) }
 
     has_many :day_ones
+    has_many :pushers
     has_many :follower_follows, foreign_key: :followee_id, class_name: :Follow
     has_many :followee_follows, foreign_key: :follower_id, class_name: :Follow
     has_many :followees, through: :followee_follows
@@ -57,7 +58,12 @@ class User < ApplicationRecord
         ovulation: day_14,
         high_chance_end: day_14 + egg_lifespan,
         low_chance_end: day_20 + egg_lifespan,
-        next_day_one: day_one + 28,
+        next_day_one: next_day_one,
       }
+    end
+
+    def next_day_one
+      return unless most_recent_date
+      most_recent_date + 28
     end
 end

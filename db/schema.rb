@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_23_172731) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_27_201727) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,6 +33,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_23_172731) do
     t.index ["follower_id"], name: "index_follows_on_follower_id"
   end
 
+  create_table "pushers", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "endpoint", null: false
+    t.string "p256dh", null: false
+    t.string "auth", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["endpoint"], name: "index_pushers_on_endpoint", unique: true
+    t.index ["user_id"], name: "index_pushers_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -46,4 +57,5 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_23_172731) do
   add_foreign_key "day_ones", "users"
   add_foreign_key "follows", "users", column: "followee_id"
   add_foreign_key "follows", "users", column: "follower_id"
+  add_foreign_key "pushers", "users"
 end

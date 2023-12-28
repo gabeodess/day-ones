@@ -1,7 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 export default () => {
+  const handleNotifications = () => {    
+    navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
+      serviceWorkerRegistration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: window.vapidPublicKey
+      }).then(() => {
+        serviceWorkerRegistration.pushManager.getSubscription().then((subscription) => {
+          if(subscription) {
+            const {endpoint, keys: {auth, p256dh}} = subscription.toJSON();
+            fetch('/pushers', {
+              method: 'post',
+              body: JSON.stringify({pusher: {endpoint, auth, p256dh}}),
+              headers: {"Content-Type": "application/json"},  
+            });
+          }
+        });
+      });        
+    });  
+  }
+
+  useEffect(() => {
+    if (!("Notification" in window)) {
+      console.error("This browser does not support desktop notification");
+    } else if (Notification.permission === "granted") {
+      console.log("Permission to receive notifications has been granted");
+      handleNotifications()
+    } else if (Notification.permission !== 'denied') {
+      Notification.requestPermission(function (permission) {
+        if (permission === "granted") {
+          console.log("Permission to receive notifications has been granted (asked)");
+          handleNotifications()
+        }
+      });
+    }
+  }, [])
+
   return <div>
     <div className="container">
       <Outlet />
