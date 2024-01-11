@@ -72,4 +72,5 @@ end
 
 gem 'bcrypt'
 gem 'rollbar'
-gem "webpush", "~> 1.1"
+gem 'web-push'
+
